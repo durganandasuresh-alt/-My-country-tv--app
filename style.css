@@ -1,0 +1,835 @@
+:root {
+  /* JioTV Signature Color Palette */
+  --jio-red: #e01f3d;
+  --jio-red-hover: #b8142e;
+  --jio-blue: #0078ff;
+  --bg-dark: #0d0e12;
+  --bg-card: #16181f;
+  --bg-card-hover: #1f232e;
+  --bg-surface: #202430;
+  --text-white: #ffffff;
+  --text-dim: #9aa1b3;
+  --text-muted: #60687a;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(224, 31, 61, 0.4);
+  --header-height: 64px;
+  --bottom-bar-height: 60px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Jost', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* JioTV Header */
+.jio-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: var(--header-height);
+  background: rgba(13, 14, 18, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+}
+
+.jio-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.jio-circle {
+  background: var(--jio-red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: -0.5px;
+}
+
+.jio-circle-sm {
+  background: var(--jio-red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.tv-text {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+}
+
+.header-search {
+  flex: 1;
+  max-width: 520px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-search input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 10px 40px 10px 42px;
+  border-radius: 24px;
+  color: #fff;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.header-search input:focus {
+  border-color: var(--jio-red);
+  background: var(--bg-surface);
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-selector {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 5px 12px;
+  gap: 8px;
+  color: var(--text-dim);
+}
+
+.lang-selector select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 0.82rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.iptv-modal-trigger {
+  background: rgba(224, 31, 61, 0.12);
+  color: var(--jio-red);
+  border: 1px solid rgba(224, 31, 61, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.iptv-modal-trigger:hover {
+  background: var(--jio-red);
+  color: #fff;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.modal-body label {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.modal-body input {
+  width: 100%;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-subtle);
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+  outline: none;
+}
+
+.btn-jio {
+  width: 100%;
+  background: var(--jio-red);
+  color: #fff;
+  border: none;
+  padding: 11px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* Layout */
+.jio-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Player Wrapper */
+.player-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.video-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
+  background: #000;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.video-viewport:hover .video-overlay {
+  opacity: 1;
+}
+
+.overlay-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.channel-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-pill {
+  background: var(--jio-red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.live-pill .dot {
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  border-radius: 50%;
+  animation: jiopulse 1.2s infinite;
+}
+
+@keyframes jiopulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+.channel-name-tag {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.stat-pill {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.overlay-center {
+  align-self: center;
+  cursor: pointer;
+  background: rgba(224, 31, 61, 0.85);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.35rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.live-label {
+  color: var(--jio-red);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.flex-spacer { flex: 1; }
+
+/* Channel Info Bar */
+.channel-info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.channel-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.channel-icon-container {
+  width: 52px;
+  height: 52px;
+  background: var(--bg-surface);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.channel-icon-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-row h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.hd-badge {
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: var(--jio-blue);
+}
+
+.current-show {
+  font-size: 0.92rem;
+  color: var(--text-white);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.show-submeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.dot-sep { color: var(--text-muted); }
+
+.channel-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+/* Catch-up EPG Timeline */
+.epg-catchup-container {
+  padding: 1rem 1.5rem 1.25rem 1.5rem;
+  background: rgba(22, 24, 31, 0.4);
+}
+
+.epg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.epg-slots-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.epg-slot {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.epg-slot.current {
+  border-color: var(--jio-red);
+  background: rgba(224, 31, 61, 0.08);
+}
+
+.live-strip {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--jio-red);
+  letter-spacing: 0.5px;
+}
+
+.epg-time {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.epg-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slot-badge {
+  font-size: 0.65rem;
+  align-self: flex-start;
+  padding: 2px 6px;
+  background: var(--bg-surface);
+  border-radius: 4px;
+  color: var(--text-dim);
+}
+
+.upcoming-badge {
+  color: var(--jio-blue);
+}
+
+.epg-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.epg-progress .fill {
+  height: 100%;
+  background: var(--jio-red);
+}
+
+/* JioTV Category Strip */
+.category-strip-wrapper {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 90;
+  background: var(--bg-dark);
+  padding: 0.5rem 0;
+}
+
+.category-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-tab {
+  white-space: nowrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-dim);
+  padding: 8px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.cat-tab:hover,
+.cat-tab.active {
+  background: var(--jio-red);
+  color: #fff;
+  border-color: var(--jio-red);
+}
+
+/* Channel Section & Matrix */
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-title-row h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.channel-count {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.jio-channel-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: transform 0.2s, border-color 0.2s;
+  position: relative;
+}
+
+.jio-channel-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-focus);
+}
+
+.jio-channel-card.active {
+  border-color: var(--jio-red);
+  background: #1e151b;
+}
+
+.card-logo-box {
+  width: 50px;
+  height: 50px;
+  background: var(--bg-surface);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.card-logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-details h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-now-playing {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.card-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.pill-genre {
+  font-size: 0.68rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--text-dim);
+}
+
+.pill-live {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--jio-red);
+}
+
+.jio-loading-spinner {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--text-dim);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(224, 31, 61, 0.2);
+  border-top-color: var(--jio-red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* JioTV Mobile Bottom Bar */
+.jio-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bottom-bar-height);
+  background: rgba(13, 14, 18, 0.96);
+  border-top: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+
+.bar-tab {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.72rem;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.bar-tab.active {
+  color: var(--jio-red);
+}
+
+.bar-tab i {
+  font-size: 1.25rem;
+}
+
+.hidden { display: none !important; }
+
+/* Responsive Viewports */
+@media (max-width: 768px) {
+  .header-search,
+  .lang-selector,
+  .iptv-modal-trigger span,
+  .channel-actions {
+    display: none;
+  }
+  
+  .jio-main {
+    padding: 0;
+    gap: 1rem;
+    margin-bottom: var(--bottom-bar-height);
+  }
+
+  /* JioTV Sticky Player on Mobile */
+  .player-container {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .channel-info-bar {
+    padding: 0.75rem 1rem;
+  }
+
+  .epg-slots-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .channel-section {
+    padding: 0 1rem;
+  }
+
+  .category-strip-wrapper {
+    top: 56.25vw; /* Positioned directly under sticky 16:9 player */
+    padding: 0.5rem 1rem;
+  }
+
+  .channel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jio-bottom-bar {
+    display: flex;
+  }
+}
